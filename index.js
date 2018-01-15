@@ -1,4 +1,7 @@
 const clickedArray = [];
+let interval;
+let started = false;
+let time = 0;
 
 function randomAnswer() {
   const answers = [1,1,2,2,3,3,4,4,5];
@@ -11,6 +14,17 @@ function reveal(cell) {
   cell.style.background = "red";
   cell.innerHTML = cell.value;
   cell.clicked = true;
+}
+
+function startTimer() {
+  if (started === false) {
+    // every second, update the timer
+    interval = setInterval(() => {
+      time++;
+      document.getElementById("timer").innerHTML = `Time elapsed: ${time}`;
+    }, 1000);
+    started = true;
+  }
 }
 
 function setUp() {
@@ -38,6 +52,7 @@ function setUp() {
     });
     
     cell.addEventListener("click", function() {
+      startTimer();
       if (this.completed === false && this.clicked === false) {
         // add cell to clicked Array
         clickedArray.push(this);
