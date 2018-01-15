@@ -5,6 +5,18 @@ let time = 0;
 let ready = true;
 let numCompleted = 0;
 
+const keyMap = {
+  1: 7,
+  2: 8,
+  3: 9,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 1,
+  8: 2,
+  9: 3,
+};
+
 function randomAnswer() {
   const answers = [1,1,2,2,3,3,4,4,5];
   // see definition of sort method: https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -113,6 +125,21 @@ function setUp() {
       }
     });
   }
+  
+  // add support for numpads
+  document.addEventListener("keydown", function(event) {
+    const key = event.key;
+    if (key > 0 && key < 10) {
+      // using the keyMap in order to provide the correct index
+      grid[keyMap[key] - 1].click();
+    }
+  });
+  
+  
+  // add restart event handler
+  document.getElementById("restart").addEventListener("click", function() {
+    location.reload();
+  });
 }
 
 setUp();
